@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.routerCarrito = void 0;
+const express_1 = require("express");
+const carrito_controller_1 = require("../controllers/carrito.controller");
+exports.routerCarrito = (0, express_1.Router)();
+exports.routerCarrito.post("/", carrito_controller_1.addItemToCarrito);
+exports.routerCarrito.get("/", carrito_controller_1.getAllCarritos);
+exports.routerCarrito.get("/:id", carrito_controller_1.getAllCarritosDeUsuario);
+exports.routerCarrito.patch("/", carrito_controller_1.removeItemCantFromCarrito);
+exports.routerCarrito.post("/remove-item", carrito_controller_1.removeItemFromCarrito);
