@@ -21,6 +21,6 @@ AppDataSource.initialize().then( async () => {
     app.use("/orden-compra", routerOrdenCompra);
 
     app.listen(PORT, () => {
-        console.log("Server running at http://localhost:" + PORT);
+        console.log("Server corriendo at http://localhost:" + PORT);
     })
 }).catch(error => console.log(error));
