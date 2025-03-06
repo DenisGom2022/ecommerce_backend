@@ -1,0 +1,45 @@
+# Ignorar la carpeta node_modules
+node_modules/
+
+# Ignorar la carpeta de compilación (dist o build)
+dist/
+build/
+
+# Ignorar archivos de entorno (pueden contener información sensible)
+.env
+.env.local
+.env.*.local
+
+# Ignorar archivos de configuración local
+*.local
+
+# Ignorar logs y archivos temporales
+*.log
+*.tmp
+*.temp
+
+# Ignorar archivos de IDE/Editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Ignorar archivos de depuración
+debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignorar archivos de cobertura
+coverage/
+.nyc_output/
+
+# Ignorar archivos de paquetes
+*.tgz
+
+# Ignorar archivos de sistema
+.DS_Store
+Thumbs.db
