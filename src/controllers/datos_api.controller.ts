@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { getAllProducto } from "./producto.controller"
 import { Producto } from "../models/Producto";
 import { Categoria } from "../models/Categoria";
 import { Carrito } from "../models/Carrito";
@@ -11,21 +10,19 @@ import { Usuario } from "../models/Usuario";
 export const datosApi = async (request: Request, response: Response): Promise<any> => {
     let datos = {}; 
     try {        
-        const productos = await Producto.find();
+        const productos = await Producto.find({relations:{categoria: true}});
         const categorias = await Categoria.find();
-        const carritos = await Carrito.find();
-        const item_carritos = await Item_carrito.find();
-        const orden_compras = await Orden_compra.find();
-        const item_orden_compras = await Item_orden_compra.find();
+        const carritos = await Carrito.find({relations: ["usuario", "items_carrito", "items_carrito.producto"]});
+        const orden_compras = await Orden_compra.find({ 
+            relations: ["usuario", "items_orden_compra", "items_orden_compra.producto"] 
+        });
         const usuarios = await Usuario.find();
     
         datos = {
             productos,
             categorias,
             carritos,
-            item_carritos,
             orden_compras,
-            item_orden_compras,
             usuarios
         }
     } catch (error) {
