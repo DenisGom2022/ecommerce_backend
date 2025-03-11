@@ -21,6 +21,7 @@ AppDataSource.initialize().then( async () => {
     app.use("/carrito", routerCarrito);
     app.use("/orden-compra", routerOrdenCompra);
     app.use("/api", routerDatosApi);
+    app.get("/", (request, response)=>{ response.send("<h1>Bienvenido al API</h1>")})
 
     app.listen(PORT, () => {
         console.log("Server corriendo at http://localhost:" + PORT);
