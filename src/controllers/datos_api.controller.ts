@@ -14,7 +14,18 @@ export const datosApi = async (request: Request, response: Response): Promise<an
         const categorias = await Categoria.find();
         const carritos = await Carrito.find({relations: ["usuario", "items_carrito", "items_carrito.producto"]});
         const orden_compras = await Orden_compra.find({ 
-            relations: ["usuario", "items_orden_compra", "items_orden_compra.producto"] 
+            relations: ["usuario", "items_orden_compra", "items_orden_compra.producto"],
+            select: {
+                items_orden_compra: {
+                    id_item_orden_compra: true,
+                    cantidad: true,
+                    producto: {
+                        id_producto: true,
+                        nombre: true,
+                        precio: true
+                    }
+                }
+            }
         });
         const usuarios = await Usuario.find();
     
