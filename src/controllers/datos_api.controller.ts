@@ -19,6 +19,7 @@ export const datosApi = async (request: Request, response: Response): Promise<an
                 items_orden_compra: {
                     id_item_orden_compra: true,
                     cantidad: true,
+                    subtotal: true,
                     producto: {
                         id_producto: true,
                         nombre: true,
