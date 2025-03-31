@@ -28,6 +28,15 @@ export const datosApi = async (request: Request, response: Response): Promise<an
                 }
             }
         });
+
+        orden_compras.map(orden => {
+            const dia_semana = new Date(orden.fecha_compra).toLocaleString('es-ES', { weekday: 'long' });
+            return {
+                ...orden,
+                dia_semana
+            }
+        })
+
         const usuarios = await Usuario.find();
     
         datos = {
