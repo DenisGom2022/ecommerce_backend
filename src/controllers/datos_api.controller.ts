@@ -13,7 +13,7 @@ export const datosApi = async (request: Request, response: Response): Promise<an
         const productos = await Producto.find({relations:{categoria: true}});
         const categorias = await Categoria.find();
         const carritos = await Carrito.find({relations: ["usuario", "items_carrito", "items_carrito.producto"]});
-        const orden_compras = await Orden_compra.find({ 
+        const orden_compras2 = await Orden_compra.find({ 
             relations: ["usuario", "items_orden_compra", "items_orden_compra.producto"],
             select: {
                 items_orden_compra: {
@@ -29,7 +29,7 @@ export const datosApi = async (request: Request, response: Response): Promise<an
             }
         });
 
-        orden_compras.map(orden => {
+        const orden_compras = orden_compras2.map(orden => {
             const dia_semana = new Date(orden.fecha_compra).toLocaleString('es-ES', { weekday: 'long' });
             return {
                 ...orden,

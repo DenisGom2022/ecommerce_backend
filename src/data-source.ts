@@ -9,14 +9,29 @@ import { Orden_compra } from "./models/Orden_compra"
 import { Item_orden_compra } from "./models/Item_orden_compra"
 import { Promocion } from "./models/Promocion"
 
+// producción
+const host = "mysql-aerolineaia2025.alwaysdata.net";
+const username = "400640";
+const password = "AlwaysData2025";
+const database = "aerolineaia2025_aerolinea";
+
+
+// pruebas
+/*
+const host = "localhost";
+const username = "root";
+const password = "";
+const database = "ecommerce";
+*/
+
 
 export const AppDataSource = new DataSource({
     type: "mysql",
-    host: "mysql-aerolineaia2025.alwaysdata.net",
+    host,
     port: 3306,
-    username: "400640",
-    password: "AlwaysData2025",
-    database: "aerolineaia2025_aerolinea",
+    username,
+    password,
+    database,
     synchronize: true,
     logging: false,
     entities: [Categoria, Producto, Usuario, Carrito, Item_carrito, Orden_compra, Item_orden_compra, Promocion],
