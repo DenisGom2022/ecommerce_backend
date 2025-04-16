@@ -83,6 +83,7 @@ export const getProducto = async (request:Request, response:Response):Promise<an
     }
 
     if(!producto) return response.status(404).send({ mensaje:"Producto no existe" });
+    
     return response.send({ mensaje:"Producto encontrado con exito", data:producto })
 }
 

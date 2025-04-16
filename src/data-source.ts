@@ -7,6 +7,7 @@ import { Carrito } from "./models/Carrito"
 import { Item_carrito } from "./models/Item_carrito"
 import { Orden_compra } from "./models/Orden_compra"
 import { Item_orden_compra } from "./models/Item_orden_compra"
+import { Promocion } from "./models/Promocion"
 
 
 export const AppDataSource = new DataSource({
@@ -18,7 +19,7 @@ export const AppDataSource = new DataSource({
     database: "aerolineaia2025_aerolinea",
     synchronize: true,
     logging: false,
-    entities: [Categoria, Producto, Usuario, Carrito, Item_carrito, Orden_compra, Item_orden_compra],
+    entities: [Categoria, Producto, Usuario, Carrito, Item_carrito, Orden_compra, Item_orden_compra, Promocion],
     migrations: [],
     subscribers: [],
 })
