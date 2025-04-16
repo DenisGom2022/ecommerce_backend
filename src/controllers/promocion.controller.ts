@@ -62,3 +62,51 @@ export const getAllPromociones = async (request:Request, response:Response):Prom
     }
     return response.status(200).send(promociones);
 }
+
+
+export const deletePromocion = async (request:Request, response:Response):Promise<any> => {
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+        return response.status(400).json({ mensaje: errors.array()[0].msg });
+    }
+    const { id_producto }:any = request.params;
+    let productoFind:Producto|null = null;
+    try {        
+        productoFind = await Producto.findOneByOrFail({ id_producto });
+    } catch (error:any) {
+        if(error instanceof EntityNotFoundError) {
+            return response.status(404).send({ mensaje: "Producto no encontrado", productoFind });
+        }
+        return response.status(500).send({ mensaje: "Error al buscar producto" });
+    }
+    if(!productoFind.promocion) {
+        return response.status(400).send({ mensaje: "El producto no tiene una promoción vigente" });
+    }
+    let promocionFind:Promocion|null = null;
+    try {
+        promocionFind = await Promocion.findOneByOrFail({ id_promocion: productoFind.promocion.id_promocion });
+    }
+    catch (error:any) {
+        if(error instanceof EntityNotFoundError) {
+            return response.status(404).send({ mensaje: "Promocion no encontrada" });
+        }
+        return response.status(500).send({ mensaje: "Error al buscar promocion" });
+    }
+
+    productoFind.promocion = null;
+    try {
+        await productoFind.save();
+    }
+    catch (error) {
+        return response.status(500).send({ mensaje: "Error al guardar producto" });
+    }    
+    
+    try {
+        await promocionFind.remove();
+    }
+    catch (error) {
+        return response.status(500).send({ mensaje: "Error al eliminar promocion" });
+    }
+
+    return response.status(200).send({ mensaje: "Promocion eliminada con éxito" });
+}

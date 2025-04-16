@@ -38,10 +38,9 @@ export class Producto extends BaseEntity {
     @AfterLoad()
     afterLoad() {
         const fechaHoy = new Date();
-        if(this.promocion && this.promocion.fecha_fin < fechaHoy && this.promocion.fecha_inicio > fechaHoy) {
+        if(this.promocion && (this.promocion.fecha_fin < fechaHoy || this.promocion.fecha_inicio > fechaHoy)) {
             this.promocion = null;
         }
-
     }
 
 }

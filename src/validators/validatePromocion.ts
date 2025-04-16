@@ -23,7 +23,7 @@ export const validatePromocion = [
 
     body('descuento')
         .bail()
-        .isFloat({ min: 0 })
+        .isFloat({ gt: 0 })
         .withMessage('El descuento debe ser un número entre 0 y 100'),
 
     body('id_producto')
