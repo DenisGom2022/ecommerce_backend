@@ -16,6 +16,8 @@ export class Producto extends BaseEntity {
     @Column({type:"double", precision:12, scale:2 })
     precio:number;
 
+    precio_real:number;
+
     @ManyToOne( ()=> Categoria, categoria => categoria.id_categoria )
     categoria:Categoria;
 
@@ -38,7 +40,11 @@ export class Producto extends BaseEntity {
     @AfterLoad()
     afterLoad() {
         const fechaHoy = new Date();
-        if(this.promocion && (this.promocion.fecha_fin < fechaHoy || this.promocion.fecha_inicio > fechaHoy)) {
+        this.precio_real = this.precio;
+        if(this.promocion && (this.promocion.fecha_fin > fechaHoy && this.promocion.fecha_inicio < fechaHoy)) {
+            this.precio = this.precio - (this.precio * (this.promocion.descuento / 100));
+            this.precio = parseFloat(this.precio.toFixed(2));
+        }else{
             this.promocion = null;
         }
     }
