@@ -17,7 +17,6 @@ export const datosApi = async (request: Request, response: Response): Promise<an
             relations: ["usuario", "items_orden_compra", "items_orden_compra.producto"],
             select: {
                 items_orden_compra: {
-                    id_item_orden_compra: true,
                     cantidad: true,
                     subtotal: true,
                     producto: {
