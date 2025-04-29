@@ -4,19 +4,21 @@ import { Carrito } from "../models/Carrito";
 import { Orden_compra } from "../models/Orden_compra";
 import { Item_orden_compra } from "../models/Item_orden_compra";
 import { Item_carrito } from "../models/Item_carrito";
+import { validationResult } from "express-validator";
 
 interface CompraCarritoInterface {
     id_usuario: number;
     metodo_de_pago: string;
     direccion_envio: string;
+    canal: string;
 }
 
 export const comprarCarrito = async (request: Request, response: Response): Promise<any> => {
     const compraData: CompraCarritoInterface = request.body;
 
     // Valida campos de la compra
-    const validaError = validaCompraCarrito(compraData);
-    if (validaError) return response.status(400).send({ mensaje: validaError });
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) return response.status(400).send({ mensaje: errors.array()[0].msg });
 
     // Busca el usuario en la base de datos
     let usuario: Usuario;
@@ -74,21 +76,6 @@ export const comprarCarrito = async (request: Request, response: Response): Prom
     }
 
     return response.send({ mensaje: "Compra realizada con éxito", ordenCompra });
-}
-
-const validaCompraCarrito = (compra: CompraCarritoInterface) => {
-    const { id_usuario, metodo_de_pago, direccion_envio } = compra;
-
-    if (id_usuario == undefined) return "Campo id_usuario es obligatorio";
-    if (!(typeof id_usuario == "number")) return "Campo id_usuario debe ser un número";
-
-    if (metodo_de_pago == undefined) return "Campo metodo_de_pago es obligatorio";
-    if (!(typeof metodo_de_pago == "string")) return "Campo metodo_de_pago debe contener texto";
-    if (metodo_de_pago.trim().length < 1) return "Campo metodo_de_pago es obligatorio";
-
-    if (direccion_envio == undefined) return "Campo direccion_envio es obligatorio";
-    if (!(typeof direccion_envio == "string")) return "Campo direccion_envio debe contener texto";
-    if (direccion_envio.trim().length < 1) return "Campo direccion_envio es obligatorio";
 }
 
 export const getAllOrdenesCompra = async (request: Request, response: Response): Promise<any> => {

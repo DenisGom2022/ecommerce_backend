@@ -19,6 +19,9 @@ export class Orden_compra extends BaseEntity {
     @Column()
     direccion_envio:string;
 
+    @Column()
+    canal:string;
+
     @CreateDateColumn()
     fecha_compra:Date;
 
