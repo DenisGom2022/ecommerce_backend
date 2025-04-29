@@ -8,6 +8,7 @@ import { routerCarrito } from "./routes/carrito.routes";
 import { routerOrdenCompra } from "./routes/orden_compra.routes";
 import { routerDatosApi } from "./routes/datos_api.routes";
 import { routerPromocion } from "./routes/promocion.route";
+import { routerDatosApiV2 } from "./routes/datos_api_V2.route";
 
 const PORT = process.env.PORT || 3006;
 
@@ -23,6 +24,7 @@ AppDataSource.initialize().then( async () => {
     app.use("/orden-compra", routerOrdenCompra);
     app.use("/promocion", routerPromocion);
     app.use("/api", routerDatosApi);
+    app.use("/api/v2", routerDatosApiV2);
     app.get("/", (request, response)=>{ response.send("<h1>Bienvenido al API</h1>")})
 
     app.listen(PORT, () => {
