@@ -48,10 +48,22 @@ export const datosApi = async (request: Request, response: Response): Promise<an
         });
 
         const orden_compras = orden_compras2.map(orden => {
+            const items_compra = orden.items_orden_compra.map(item => {
+                const producto = item.producto.nombre;
+                const id_producto = item.producto.id_producto;
+                const precio_producto = item.producto.precio;
+                return {
+                    ...item,
+                    producto,
+                    id_producto,
+                    precio_producto
+                }
+            })
             const dia_semana = new Date(orden.fecha_compra).toLocaleString('es-ES', { weekday: 'long' });
             return {
                 ...orden,
-                dia_semana
+                dia_semana,
+                items_orden_compra: items_compra
             }
         })
 
