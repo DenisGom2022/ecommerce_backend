@@ -56,6 +56,7 @@ export const comprarCarrito = async (request: Request, response: Response): Prom
     ordenCompra.total = carrito.items_carrito.reduce((sum, item) => sum + item.subtotal, 0);
     ordenCompra.metodo_de_pago = compraData.metodo_de_pago;
     ordenCompra.direccion_envio = compraData.direccion_envio;
+    ordenCompra.canal = compraData.canal;
     await ordenCompra.save();
 
     // Crea los ítems de la orden de compra
